@@ -1,0 +1,15 @@
+[
+  {
+    "sessionId": 1,
+    "clientId": 1,
+    "tutorId": 1,
+    "aiModelIds": [],
+    "sessionDate": "2025-04-18",
+    "startTime": "14:00",
+    "durationMinutes": 90,
+    "status": "Scheduled",
+    "learningObjectives": "Introduction to GPT-4 architecture and capabilities",
+    "isRemote": true,
+    "platform": "Zoom"
+  }
+]

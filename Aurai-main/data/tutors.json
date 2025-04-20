@@ -1,0 +1,22 @@
+[
+  {
+    "userId": 1,
+    "firstName": "Emily",
+    "lastName": "Johnson",
+    "email": "emily.johnson@aitutoring.com",
+    "phone": "555-111-2222",
+    "aiSpecializations": ["GPT-4", "DALL-E", "Claude AI"],
+    "experienceYears": 5,
+    "hourlyRate": 120
+  },
+  {
+    "userId": 2,
+    "firstName": "Michael",
+    "lastName": "Lee",
+    "email": "michael.lee@aitutoring.com",
+    "phone": "555-333-4444",
+    "aiSpecializations": ["Claude AI", "LLaMA"],
+    "experienceYears": 3,
+    "hourlyRate": 90
+  }
+]
