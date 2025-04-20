@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tutoring CRM - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-robot"></i>
+                <h1>AI Tutoring CRM</h1>
+            </div>
+            <div class="user-menu">
+                <span class="user-name">Admin User</span>
+                <div class="avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <nav class="sidebar">
+                <ul>
+                    <li class="active" data-panel="dashboard-panel">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </li>
+                    <li data-panel="tutors-panel">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Tutors</span>
+                    </li>
+                    <li data-panel="clients-panel">
+                        <i class="fas fa-users"></i>
+                        <span>Clients</span>
+                    </li>
+                    <li data-panel="sessions-panel">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Sessions</span>
+                    </li>
+                    <li data-panel="materials-panel">
+                        <i class="fas fa-book"></i>
+                        <span>Learning Materials</span>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="content">
+                <!-- Dashboard Panel -->
+                <div id="dashboard-panel" class="panel active">
+                    <h2 class="panel-title">Dashboard</h2>
+                    <div class="stats-container">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Total Clients</h3>
+                                <p id="total-clients-count">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Total Tutors</h3>
+                                <p id="total-tutors-count">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Sessions This Month</h3>
+                                <p id="sessions-this-month">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Revenue This Month</h3>
+                                <p id="revenue-this-month">$0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-bottom">
+                        <div class="upcoming-sessions">
+                            <h3>Upcoming Sessions</h3>
+                            <div class="table-wrapper">
+                                <table id="dashboard-sessions-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Client</th>
+                                            <th>Tutor</th>
+                                            <th>Platform</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dashboard-sessions-list">
+                                        <!-- Sessions will be loaded here -->
+                                        <tr>
+                                            <td colspan="5" class="loading-message">
+                                                <i class="fas fa-spinner fa-spin"></i> Loading sessions...
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="popular-materials">
+                            <h3>Popular Learning Materials</h3>
+                            <div class="material-cards" id="popular-materials-list">
+                                <!-- Learning materials will be loaded here -->
+                                <div class="loading-container">
+                                    <i class="fas fa-spinner fa-spin"></i> Loading materials...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tutors Panel -->
+                <div id="tutors-panel" class="panel">
+                    <div class="panel-header">
+                        <h2 class="panel-title">Tutors</h2>
+                        <div class="header-actions">
+                            <div class="search-container">
+                                <input type="text" id="tutor-search-input" placeholder="Search tutors...">
+                                <select id="tutor-search-type">
+                                    <option value="name">Name</option>
+                                    <option value="email">Email</option>
+                                    <option value="specialization">Specialization</option>
+                                    <option value="expertise">Domain Expertise</option>
+                                </select>
+                                <button id="tutor-search-btn" class="btn btn-primary">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
+                            </div>
+                            <button id="add-tutor-btn" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Add Tutor
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tutor Add/Edit Form -->
+                    <div id="tutor-form" class="form-container" style="display: none;">
+                        <div class="form-header">
+                            <h3 id="tutor-form-title">Add New Tutor</h3>
+                            <button id="close-tutor-form" class="close-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="form-body">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="tutorFirstName">First Name</label>
+                                    <input type="text" id="tutorFirstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tutorLastName">Last Name</label>
+                                    <input type="text" id="tutorLastName" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="tutorEmail">Email</label>
+                                    <input type="email" id="tutorEmail" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tutorPhone">Phone</label>
+                                    <input type="tel" id="tutorPhone">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="tutorQualification">Qualification</label>
+                                    <input type="text" id="tutorQualification" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tutorExperienceYears">Years of Experience</label>
+                                    <input type="number" id="tutorExperienceYears" min="0" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="tutorHourlyRate">Hourly Rate ($)</label>
+                                    <input type="number" id="tutorHourlyRate" min="0" step="0.01" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tutorUsername">Username (for login)</label>
+                                    <input type="text" id="tutorUsername">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="tutorPassword">Password</label>
+                                <input type="password" id="tutorPassword">
+                                <small>Leave blank to keep current password when editing.</small>
+                            </div>
+                            <div class="form-group">
+                                <label>AI Specializations</label>
+                                <div id="tutorSpecializations" class="tag-input-container">
+                                    <input type="text" id="specializationInput"
+                                        placeholder="Type and press Enter to add">
+                                    <div id="specializationTags" class="tags-container"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Domain Expertise</label>
+                                <div id="tutorExpertise" class="tag-input-container">
+                                    <input type="text" id="expertiseInput" placeholder="Type and press Enter to add">
+                                    <div id="expertiseTags" class="tags-container"></div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button id="save-tutor-btn" class="btn btn-primary">Save Tutor</button>
+                                <button id="cancel-tutor-btn" class="btn btn-secondary">Cancel</button>
+                            </div>
+                            </div>
+                            </div>
+                            
+                            <!-- Tutors Table -->
+                            <div id="tutors-loading" class="loading-container">
+                                <i class="fas fa-spinner fa-spin"></i> Loading tutors...
+                            </div>
+                            <div id="tutors-message" class="message" style="display: none;"></div>
+                            <div class="table-wrapper">
+                                <table id="tutors-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>AI Specializations</th>
+                                            <th>Domain Expertise</th>
+                                            <th>Experience</th>
+                                            <th>Hourly Rate</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tutors-list">
+                                        <!-- Tutors will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            </div>
+                            
+                            <!-- Clients Panel -->
+                            <div id="clients-panel" class="panel">
+                                <div class="panel-header">
+                                    <h2 class="panel-title">Clients</h2>
+                                    <div class="search-container">
+                                    <input type="text" id="client-search-input" placeholder="Search clients...">
+                                        <select id="client-search-type">
+                                            <option value="name">Name</option>
+                                            <option value="email">Email</option>
+                                            <option value="company">Company</option>
+                                        </select>
+                                        <button id="client-search-btn" class="btn btn-primary">
+                                            <i class="fas fa-search"></i> Search
+                                        </button>
+                                    </div>
+                                    <button id="add-client-btn" class="btn btn-primary">
+                                        <i class="fas fa-plus"></i> Add Client
+                                    </button>
+                                </div>
+                            
+                                <!-- Client Add/Edit Form -->
+                                <div id="client-form" class="form-container" style="display: none;">
+                                    <div class="form-header">
+                                        <h3 id="client-form-title">Add New Client</h3>
+                                        <button id="close-client-form" class="close-btn">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                    <div class="form-body">
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="firstName">First Name</label>
+                                                <input type="text" id="firstName" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="lastName">Last Name</label>
+                                                <input type="text" id="lastName" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="email">Email</label>
+                                                <input type="email" id="email" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="phone">Phone</label>
+                                                <input type="tel" id="phone">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="company">Company</label>
+                                                <input type="text" id="company">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="position">Position</label>
+                                                <input type="text" id="position">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="budget">Budget ($)</label>
+                                            <input type="number" id="budget" min="0" step="10">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>AI Models of Interest</label>
+                                            <div id="clientAIModels" class="tag-input-container">
+                                                <input type="text" id="aiModelInput" placeholder="Type and press Enter to add">
+                                                <div id="aiModelTags" class="tags-container"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-actions">
+                                            <button id="save-client-btn" class="btn btn-primary">Save Client</button>
+                                            <button id="cancel-client-btn" class="btn btn-secondary">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                <!-- Clients Table -->
+                                <div id="clients-loading" class="loading-container">
+                                    <i class="fas fa-spinner fa-spin"></i> Loading clients...
+                                </div>
+                                <div id="clients-message" class="message" style="display: none;"></div>
+                                <div class="table-wrapper">
+                                    <table id="clients-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Company</th>
+                                                <th>AI Models</th>
+                                                <th>Sessions</th>
+                                                <th>Budget</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="clients-list">
+                                            <!-- Clients will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <!-- Sessions Panel -->
+                            <div id="sessions-panel" class="panel">
+                                <div class="panel-header">
+                                    <h2 class="panel-title">Tutoring Sessions</h2>
+                                    <button id="add-session-btn" class="btn btn-primary">
+                                        <i class="fas fa-plus"></i> New Session
+                                    </button>
+                                </div>
+                            
+                                <!-- Session Add/Edit Form -->
+                                <div id="session-form" class="form-container" style="display: none;">
+                                    <div class="form-header">
+                                        <h3 id="session-form-title">Schedule New Session</h3>
+                                        <button id="close-session-form" class="close-btn">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                    <div class="form-body">
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="clientSelect">Client</label>
+                                                <select id="clientSelect" required>
+                                                    <option value="">Select a client</option>
+                                                    <!-- Client options will be loaded here -->
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tutorSelect">Tutor</label>
+                                                <select id="tutorSelect" required>
+                                                    <option value="">Select a tutor</option>
+                                                    <!-- Tutor options will be loaded here -->
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="sessionDate">Date</label>
+                                                <input type="date" id="sessionDate" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="startTime">Start Time</label>
+                                                <input type="time" id="startTime" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="duration">Duration (minutes)</label>
+                                                <input type="number" id="duration" min="30" step="15" value="60" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sessionObjectives">Learning Objectives</label>
+                                            <textarea id="sessionObjectives" rows="3"></textarea>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label>Session Type</label>
+                                                <div class="radio-group">
+                                                    <div class="radio-option">
+                                                        <input type="radio" id="remoteSession" name="sessionType" value="remote" checked>
+                                                        <label for="remoteSession">Remote</label>
+                                                    </div>
+                                                    <div class="radio-option">
+                                                        <input type="radio" id="inPersonSession" name="sessionType" value="in-person">
+                                                        <label for="inPersonSession">In-Person</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" id="platformGroup">
+                                                <label for="platform">Platform</label>
+                                                <select id="platform">
+                                                    <option>Zoom</option>
+                                                    <option>Microsoft Teams</option>
+                                                    <option>Google Meet</option>
+                                                    <option>Discord</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-actions">
+                                            <button id="save-session-btn" class="btn btn-primary">Schedule Session</button>
+                                            <button id="cancel-session-btn" class="btn btn-secondary">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                <!-- Sessions Table -->
+                                <div id="sessions-loading" class="loading-container">
+                                    <i class="fas fa-spinner fa-spin"></i> Loading sessions...
+                                </div>
+                                <div id="sessions-message" class="message" style="display: none;"></div>
+                                <div class="table-wrapper">
+                                    <table id="sessions-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Client</th>
+                                                <th>Tutor</th>
+                                                <th>Date</th>
+                                                <th>Time</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="sessions-list">
+                                            <!-- Sessions will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <!-- Learning Materials Panel -->
+                            <div id="materials-panel" class="panel">
+                                <div class="panel-header">
+                                    <h2 class="panel-title">Learning Materials</h2>
+                                    <button id="add-material-btn" class="btn btn-primary">
+                                        <i class="fas fa-plus"></i> Add Material
+                                    </button>
+                                </div>
+                            
+                                <!-- Material Add/Edit Form -->
+                                <div id="material-form" class="form-container" style="display: none;">
+                                    <div class="form-header">
+                                        <h3 id="material-form-title">Add New Learning Material</h3>
+                                        <button id="close-material-form" class="close-btn">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                    <div class="form-body">
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="materialTitle">Title</label>
+                                                <input type="text" id="materialTitle" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="materialAuthor">Author</label>
+                                                <input type="text" id="materialAuthor" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="materialDescription">Description</label>
+                                            <textarea id="materialDescription" rows="3"></textarea>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="materialType">Type</label>
+                                                <select id="materialType" required>
+                                                    <option value="Document">Document</option>
+                                                    <option value="Video">Video</option>
+                                                    <option value="Interactive">Interactive</option>
+                                                    <option value="Exercise">Exercise</option>
+                                                    <option value="Quiz">Quiz</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="materialFormat">Format</label>
+                                                <select id="materialFormat" required>
+                                                    <option value="PDF">PDF</option>
+                                                    <option value="MP4">MP4</option>
+                                                    <option value="Notebook">Notebook</option>
+                                                    <option value="HTML">HTML</option>
+                                                    <option value="PPTX">PPTX</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="materialDifficulty">Difficulty Level</label>
+                                                <select id="materialDifficulty" required>
+                                                    <option value="1">1 - Beginner</option>
+                                                    <option value="2">2 - Easy</option>
+                                                    <option value="3">3 - Intermediate</option>
+                                                    <option value="4">4 - Advanced</option>
+                                                    <option value="5">5 - Expert</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="materialTime">Estimated Time (minutes)</label>
+                                                <input type="number" id="materialTime" min="5" step="5" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="materialUrl">URL (optional)</label>
+                                                <input type="url" id="materialUrl">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="materialPath">Local Path (optional)</label>
+                                                <input type="text" id="materialPath">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Associated AI Models</label>
+                                            <div id="materialAIModelsSelect" class="checkbox-group">
+                                                <!-- AI model options will be loaded here -->
+                                                <div class="loading-inline">
+                                                    <i class="fas fa-spinner fa-spin"></i> Loading AI models...
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tags</label>
+                                            <div id="materialTags" class="tag-input-container">
+                                                <input type="text" id="tagInput" placeholder="Type and press Enter to add">
+                                                <div id="materialTagsList" class="tags-container"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-actions">
+                                            <button id="save-material-btn" class="btn btn-primary">Save Material</button>
+                                            <button id="cancel-material-btn" class="btn btn-secondary">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                <!-- Materials Table -->
+                                <div id="materials-loading" class="loading-container">
+                                    <i class="fas fa-spinner fa-spin"></i> Loading materials...
+                                </div>
+                                <div id="materials-message" class="message" style="display: none;"></div>
+                                <div class="table-wrapper">
+                                    <table id="materials-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Title</th>
+                                                <th>Type</th>
+                                                <th>Format</th>
+                                                <th>Author</th>
+                                                <th>Difficulty</th>
+                                                <th>Est. Time</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="materials-list">
+                                            <!-- Materials will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <!-- Reports Panel (Placeholder) -->
+                            <div id="reports-panel" class="panel">
+                                <h2 class="panel-title">Reports</h2>
+                                <p class="placeholder-message">Reporting functionality coming soon!</p>
+                            </div>
+                            
+                            <!-- Settings Panel (Placeholder) -->
+                            <div id="settings-panel" class="panel">
+                                <h2 class="panel-title">Settings</h2>
+                                <p class="placeholder-message">Settings functionality coming soon!</p>
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+                            
+                            <!-- Toast notifications container -->
+                            <div id="toast-container"></div>
+                            
+                            <!-- Scripts -->
+                            <script src="app.js"></script>
+                            </body>
+                            
+                            </html>
