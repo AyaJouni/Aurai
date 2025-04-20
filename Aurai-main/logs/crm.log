@@ -1,0 +1,434 @@
+2025-04-18 20:03:45 [INFO] Loaded 2 users
+2025-04-18 20:03:45 [INFO] Loaded 2 clients
+2025-04-18 20:03:45 [INFO] Loaded 3 AI models
+2025-04-18 20:03:45 [INFO] CRM System started
+2025-04-18 20:03:45 [INFO] Starting API server
+2025-04-18 20:03:45 [INFO] Starting API server on port 8080
+2025-04-18 20:03:55 [INFO] POST /api/clients/add endpoint called
+2025-04-18 20:03:55 [ERROR] Error adding client: Validation Error: Invalid email address
+2025-04-18 20:03:55 [INFO] GET /api/clients endpoint called
+2025-04-18 20:04:13 [INFO] POST /api/sessions/add endpoint called
+2025-04-18 20:04:13 [INFO] GET /api/sessions endpoint called
+2025-04-18 20:04:27 [INFO] POST /api/sessions/add endpoint called
+2025-04-18 20:04:27 [INFO] GET /api/sessions endpoint called
+2025-04-18 20:06:17 [INFO] Loaded 2 users
+2025-04-18 20:06:17 [INFO] Loaded 2 clients
+2025-04-18 20:06:17 [INFO] Loaded 3 AI models
+2025-04-18 20:06:17 [INFO] CRM System started
+2025-04-18 20:06:17 [INFO] Starting API server
+2025-04-18 20:06:17 [INFO] Starting API server on port 8080
+2025-04-18 20:06:28 [INFO] POST /api/clients/add endpoint called
+2025-04-18 20:06:28 [ERROR] Error adding client: Validation Error: Invalid email address
+2025-04-18 20:06:28 [INFO] GET /api/clients endpoint called
+2025-04-18 20:06:54 [INFO] POST /api/clients/add endpoint called
+2025-04-18 20:06:54 [ERROR] Error adding client: Validation Error: Invalid email address
+2025-04-18 20:06:54 [INFO] GET /api/clients endpoint called
+2025-04-18 20:25:48 [INFO] Loaded 2 users
+2025-04-18 20:25:48 [INFO] Loaded 2 clients
+2025-04-18 20:25:48 [INFO] Loaded 3 AI models
+2025-04-18 20:25:48 [INFO] CRM System started
+2025-04-18 20:25:48 [INFO] Starting API server
+2025-04-18 20:25:48 [INFO] Starting API server on port 8080
+2025-04-18 20:29:25 [INFO] Loaded 2 users
+2025-04-18 20:29:25 [INFO] Loaded 2 clients
+2025-04-18 20:29:25 [INFO] Loaded 3 AI models
+2025-04-18 20:29:25 [INFO] CRM System started
+2025-04-18 20:29:25 [INFO] Starting API server
+2025-04-18 20:29:25 [INFO] Starting API server on port 8080
+2025-04-18 20:31:00 [INFO] Loaded 2 users
+2025-04-18 20:31:00 [INFO] Loaded 2 clients
+2025-04-18 20:31:00 [INFO] Loaded 3 AI models
+2025-04-18 20:31:00 [INFO] CRM System started
+2025-04-18 20:31:00 [INFO] Starting API server
+2025-04-18 20:31:00 [INFO] Starting API server on port 8080
+2025-04-18 20:43:00 [INFO] Loaded 2 users
+2025-04-18 20:43:00 [INFO] Loaded 2 clients
+2025-04-18 20:43:00 [INFO] Loaded 3 AI models
+2025-04-18 20:43:00 [INFO] CRM System started
+2025-04-18 20:43:00 [INFO] Starting API server
+2025-04-18 20:43:00 [INFO] Starting API server on port 8080
+2025-04-18 20:43:36 [INFO] POST /api/clients/add endpoint called
+2025-04-18 20:43:36 [ERROR] Error adding client: Validation Error: Invalid email address
+2025-04-18 20:43:36 [INFO] GET /api/clients endpoint called
+2025-04-19 11:40:31 [INFO] Loaded 2 users
+2025-04-19 11:40:31 [INFO] Loaded 2 clients
+2025-04-19 11:40:31 [INFO] Loaded 3 AI models
+2025-04-19 11:40:31 [INFO] CRM System started
+2025-04-19 11:40:31 [INFO] Starting API server
+2025-04-19 11:40:31 [INFO] Starting API server on port 8080
+2025-04-19 11:42:49 [INFO] Loaded 2 users
+2025-04-19 11:42:49 [INFO] Loaded 2 clients
+2025-04-19 11:42:49 [INFO] Loaded 3 AI models
+2025-04-19 11:42:49 [INFO] CRM System started
+2025-04-19 11:42:49 [INFO] Starting API server
+2025-04-19 11:42:49 [INFO] Starting API server on port 8080
+2025-04-19 11:42:54 [INFO] GET /api/tutors endpoint called
+2025-04-19 11:42:54 [INFO] GET /api/clients endpoint called
+2025-04-19 11:42:54 [INFO] GET /api/materials endpoint called
+2025-04-19 11:42:54 [INFO] GET /api/sessions endpoint called
+2025-04-19 11:42:54 [INFO] GET /api/aimodels endpoint called
+2025-04-19 11:43:39 [INFO] Loaded 2 users
+2025-04-19 11:43:39 [INFO] Loaded 2 clients
+2025-04-19 11:43:39 [INFO] Loaded 3 AI models
+2025-04-19 11:43:39 [INFO] CRM System started
+2025-04-19 11:43:39 [INFO] Starting API server
+2025-04-19 11:43:39 [INFO] Starting API server on port 8080
+2025-04-19 11:43:43 [INFO] GET /api/clients endpoint called
+2025-04-19 11:43:43 [INFO] GET /api/tutors endpoint called
+2025-04-19 11:43:43 [INFO] GET /api/sessions endpoint called
+2025-04-19 11:43:43 [INFO] GET /api/materials endpoint called
+2025-04-19 11:43:43 [INFO] GET /api/aimodels endpoint called
+2025-04-19 11:46:54 [INFO] Loaded 2 users
+2025-04-19 11:46:54 [INFO] Loaded 2 clients
+2025-04-19 11:46:54 [INFO] Loaded 3 AI models
+2025-04-19 11:46:54 [INFO] CRM System started
+2025-04-19 11:46:54 [INFO] Starting API server
+2025-04-19 11:46:54 [INFO] Starting API server on port 8080
+2025-04-19 11:46:58 [INFO] GET /api/clients endpoint called
+2025-04-19 11:46:58 [INFO] GET /api/tutors endpoint called
+2025-04-19 11:46:58 [INFO] GET /api/sessions endpoint called
+2025-04-19 11:46:58 [INFO] GET /api/materials endpoint called
+2025-04-19 11:46:58 [INFO] GET /api/aimodels endpoint called
+2025-04-19 11:48:29 [INFO] POST /api/clients/add endpoint called
+2025-04-19 11:48:29 [ERROR] Error adding client: Validation Error: Invalid email address
+2025-04-19 11:48:29 [INFO] GET /api/clients endpoint called
+2025-04-19 11:50:10 [INFO] POST /api/sessions/add endpoint called
+2025-04-19 11:50:10 [INFO] GET /api/sessions endpoint called
+2025-04-19 12:15:28 [INFO] Loaded 2 users
+2025-04-19 12:15:28 [INFO] Loaded 2 clients
+2025-04-19 12:15:28 [INFO] Loaded 3 AI models
+2025-04-19 12:15:28 [INFO] CRM System started
+2025-04-19 12:15:28 [INFO] Starting API server
+2025-04-19 12:15:28 [INFO] Starting API server on port 8080
+2025-04-19 12:15:37 [INFO] GET /api/clients endpoint called
+2025-04-19 12:15:37 [INFO] GET /api/sessions endpoint called
+2025-04-19 12:15:37 [INFO] GET /api/tutors endpoint called
+2025-04-19 12:15:37 [INFO] GET /api/materials endpoint called
+2025-04-19 12:15:37 [INFO] GET /api/aimodels endpoint called
+2025-04-19 12:16:07 [INFO] POST /api/clients/add endpoint called
+2025-04-19 12:16:07 [ERROR] Error adding client: Validation Error: Invalid email address
+2025-04-19 12:16:07 [INFO] GET /api/clients endpoint called
+2025-04-19 12:24:23 [INFO] Loaded 2 users
+2025-04-19 12:24:23 [INFO] Loaded 2 clients
+2025-04-19 12:24:23 [INFO] Loaded 3 AI models
+2025-04-19 12:24:23 [INFO] CRM System started
+2025-04-19 12:24:23 [INFO] Starting API server
+2025-04-19 12:24:23 [INFO] Starting API server on port 8080
+2025-04-19 12:24:31 [INFO] GET /api/clients endpoint called
+2025-04-19 12:24:31 [INFO] GET /api/tutors endpoint called
+2025-04-19 12:24:31 [INFO] GET /api/sessions endpoint called
+2025-04-19 12:24:31 [INFO] GET /api/materials endpoint called
+2025-04-19 12:24:31 [INFO] GET /api/aimodels endpoint called
+2025-04-19 12:24:41 [INFO] POST /api/clients/add endpoint called
+2025-04-19 12:24:41 [ERROR] Error adding client: Validation Error: Invalid email address
+2025-04-19 12:24:41 [INFO] GET /api/clients endpoint called
+2025-04-19 12:25:07 [INFO] POST /api/clients/add endpoint called
+2025-04-19 12:25:07 [ERROR] Error adding client: Validation Error: Invalid email address
+2025-04-19 12:25:07 [INFO] GET /api/clients endpoint called
+2025-04-19 12:25:26 [INFO] POST /api/clients/add endpoint called
+2025-04-19 12:25:26 [ERROR] Error adding client: Validation Error: Invalid email address
+2025-04-19 12:25:26 [INFO] GET /api/clients endpoint called
+2025-04-19 12:48:51 [INFO] Loaded 2 users
+2025-04-19 12:48:51 [INFO] Loaded 2 clients
+2025-04-19 12:48:51 [INFO] Loaded 3 AI models
+2025-04-19 12:48:51 [INFO] CRM System started
+2025-04-19 12:48:51 [INFO] Starting API server
+2025-04-19 12:48:51 [INFO] Starting API server on port 8080
+2025-04-19 13:59:26 [INFO] Loaded 2 users
+2025-04-19 13:59:26 [INFO] Loaded 2 clients
+2025-04-19 13:59:26 [INFO] Loaded 3 AI models
+2025-04-19 13:59:26 [INFO] CRM System started
+2025-04-19 13:59:26 [INFO] Starting API server
+2025-04-19 13:59:26 [INFO] Starting API server on port 8080
+2025-04-19 13:59:43 [INFO] GET /api/tutors endpoint called
+2025-04-19 13:59:43 [INFO] GET /api/clients endpoint called
+2025-04-19 13:59:43 [INFO] GET /api/sessions endpoint called
+2025-04-19 13:59:43 [INFO] GET /api/materials endpoint called
+2025-04-19 13:59:43 [INFO] GET /api/aimodels endpoint called
+2025-04-19 13:59:55 [INFO] POST /api/clients/add endpoint called
+2025-04-19 13:59:55 [ERROR] Error adding client: Validation Error: Invalid email address
+2025-04-19 13:59:55 [INFO] GET /api/clients endpoint called
+2025-04-19 14:02:49 [INFO] Loaded 2 users
+2025-04-19 14:02:49 [INFO] Loaded 2 clients
+2025-04-19 14:02:49 [INFO] Loaded 3 AI models
+2025-04-19 14:02:49 [INFO] CRM System started
+2025-04-19 14:02:49 [INFO] Starting API server
+2025-04-19 14:02:49 [INFO] Starting API server on port 8080
+2025-04-19 14:02:59 [INFO] GET /api/clients endpoint called
+2025-04-19 14:02:59 [INFO] GET /api/tutors endpoint called
+2025-04-19 14:02:59 [INFO] GET /api/sessions endpoint called
+2025-04-19 14:02:59 [INFO] GET /api/materials endpoint called
+2025-04-19 14:02:59 [INFO] GET /api/aimodels endpoint called
+2025-04-19 14:03:11 [INFO] POST /api/clients/add endpoint called
+2025-04-19 14:03:11 [ERROR] Error adding client: Validation Error: Invalid email address
+2025-04-19 14:03:11 [INFO] GET /api/clients endpoint called
+2025-04-19 14:03:29 [INFO] POST /api/sessions/add endpoint called
+2025-04-19 14:03:29 [INFO] GET /api/sessions endpoint called
+2025-04-19 14:05:31 [INFO] Loaded 2 users
+2025-04-19 14:05:31 [INFO] Loaded 2 clients
+2025-04-19 14:05:31 [INFO] Loaded 3 AI models
+2025-04-19 14:05:31 [INFO] CRM System started
+2025-04-19 14:05:31 [INFO] Starting API server
+2025-04-19 14:05:31 [INFO] Starting API server on port 8080
+2025-04-19 14:05:34 [INFO] GET /api/clients endpoint called
+2025-04-19 14:05:34 [INFO] GET /api/tutors endpoint called
+2025-04-19 14:05:34 [INFO] GET /api/sessions endpoint called
+2025-04-19 14:05:34 [INFO] GET /api/materials endpoint called
+2025-04-19 14:05:34 [INFO] GET /api/aimodels endpoint called
+2025-04-19 14:06:13 [INFO] POST /api/clients/add endpoint called
+2025-04-19 14:06:13 [ERROR] Error adding client: Validation Error: Invalid email address
+2025-04-19 14:06:13 [INFO] GET /api/clients endpoint called
+2025-04-19 14:08:05 [INFO] User logged in: admin
+2025-04-19 20:26:26 [INFO] Loaded 2 users
+2025-04-19 20:26:26 [INFO] Loaded 2 clients
+2025-04-19 20:26:26 [INFO] Loaded 3 AI models
+2025-04-19 20:26:26 [INFO] CRM System started
+2025-04-19 20:26:26 [INFO] Starting API server
+2025-04-19 20:26:26 [INFO] Starting API server on port 8080
+2025-04-19 20:26:31 [INFO] GET /api/clients endpoint called
+2025-04-19 20:26:31 [INFO] GET /api/tutors endpoint called
+2025-04-19 20:26:31 [INFO] GET /api/materials endpoint called
+2025-04-19 20:26:31 [INFO] GET /api/sessions endpoint called
+2025-04-19 20:26:31 [INFO] GET /api/aimodels endpoint called
+2025-04-19 20:55:18 [INFO] Loaded 2 users
+2025-04-19 20:55:18 [INFO] Loaded 2 clients
+2025-04-19 20:55:18 [INFO] Loaded 3 AI models
+2025-04-19 20:55:18 [INFO] CRM System started
+2025-04-19 20:55:18 [INFO] Starting API server
+2025-04-19 20:55:18 [INFO] Starting API server on port 8080
+2025-04-19 20:55:25 [INFO] GET /api/clients endpoint called
+2025-04-19 20:55:25 [INFO] GET /api/sessions endpoint called
+2025-04-19 20:55:25 [INFO] GET /api/materials endpoint called
+2025-04-19 20:55:25 [INFO] GET /api/aimodels endpoint called
+2025-04-19 20:55:25 [INFO] GET /api/tutors endpoint called
+2025-04-19 20:56:44 [INFO] POST /api/clients/add endpoint called
+2025-04-19 20:56:44 [ERROR] Error adding client: Validation Error: Invalid email address
+2025-04-19 20:56:44 [INFO] GET /api/clients endpoint called
+2025-04-19 20:57:17 [INFO] POST /api/clients/add endpoint called
+2025-04-19 20:57:17 [ERROR] Error adding client: Validation Error: Invalid email address
+2025-04-19 20:57:17 [INFO] GET /api/clients endpoint called
+2025-04-19 21:02:31 [INFO] POST /api/clients/add endpoint called
+2025-04-19 21:02:31 [ERROR] Error adding client: Validation Error: Invalid email address
+2025-04-19 21:02:31 [INFO] GET /api/clients endpoint called
+2025-04-19 21:06:08 [INFO] Loaded 2 users
+2025-04-19 21:06:08 [INFO] Loaded 2 clients
+2025-04-19 21:06:08 [INFO] Loaded 3 AI models
+2025-04-19 21:06:08 [INFO] CRM System started
+2025-04-19 21:06:08 [INFO] Starting API server
+2025-04-19 21:06:08 [INFO] Starting API server on port 8080
+2025-04-19 21:09:22 [INFO] Loaded 2 users
+2025-04-19 21:09:22 [INFO] Loaded 2 clients
+2025-04-19 21:09:22 [INFO] Loaded 3 AI models
+2025-04-19 21:09:22 [INFO] CRM System started
+2025-04-19 21:09:22 [INFO] Starting API server
+2025-04-19 21:09:22 [INFO] Starting API server on port 8080
+2025-04-19 21:33:53 [INFO] Loaded 2 users
+2025-04-19 21:33:53 [INFO] Loaded 2 clients
+2025-04-19 21:33:53 [INFO] Loaded 3 AI models
+2025-04-19 21:33:53 [INFO] CRM System started
+2025-04-19 21:33:53 [INFO] Starting API server
+2025-04-19 21:33:53 [INFO] Starting API server on port 8080
+2025-04-19 21:34:42 [INFO] Loaded 2 users
+2025-04-19 21:34:42 [INFO] Loaded 2 clients
+2025-04-19 21:34:42 [INFO] Loaded 3 AI models
+2025-04-19 21:34:42 [INFO] CRM System started
+2025-04-19 21:34:42 [INFO] Starting API server
+2025-04-19 21:34:42 [INFO] Starting API server on port 8080
+2025-04-19 21:35:32 [INFO] Loaded 2 users
+2025-04-19 21:35:32 [INFO] Loaded 2 clients
+2025-04-19 21:35:32 [INFO] Loaded 3 AI models
+2025-04-19 21:35:32 [INFO] CRM System started
+2025-04-19 21:35:32 [INFO] Starting API server
+2025-04-19 21:35:32 [INFO] Starting API server on port 8080
+2025-04-19 21:57:02 [INFO] Loaded 2 users
+2025-04-19 21:57:02 [INFO] Loaded 2 clients
+2025-04-19 21:57:02 [INFO] Loaded 3 AI models
+2025-04-19 21:57:02 [INFO] CRM System started
+2025-04-19 21:57:02 [INFO] Starting API server
+2025-04-19 21:57:02 [INFO] Starting API server on port 8080
+2025-04-19 22:50:15 [INFO] Loaded 2 users
+2025-04-19 22:50:15 [INFO] Loaded 2 clients
+2025-04-19 22:50:15 [INFO] Loaded 3 AI models
+2025-04-19 22:50:15 [INFO] CRM System started
+2025-04-19 22:50:15 [INFO] Starting API server
+2025-04-19 22:50:15 [INFO] Starting API server on port 8080
+2025-04-19 22:56:12 [INFO] Loaded 2 users
+2025-04-19 22:56:12 [INFO] Loaded 2 clients
+2025-04-19 22:56:12 [INFO] Loaded 3 AI models
+2025-04-19 22:56:12 [INFO] CRM System started
+2025-04-19 22:56:12 [INFO] Starting API server
+2025-04-19 22:56:12 [INFO] Starting API server on port 8080
+2025-04-19 23:04:59 [INFO] Loaded 2 users
+2025-04-19 23:04:59 [INFO] Loaded 2 clients
+2025-04-19 23:04:59 [INFO] Loaded 3 AI models
+2025-04-19 23:04:59 [INFO] CRM System started
+2025-04-19 23:04:59 [INFO] Starting API server
+2025-04-19 23:04:59 [INFO] Starting API server on port 8080
+2025-04-19 23:08:00 [INFO] Loaded 2 users
+2025-04-19 23:08:00 [INFO] Loaded 2 clients
+2025-04-19 23:08:00 [INFO] Loaded 3 AI models
+2025-04-19 23:08:00 [INFO] CRM System started
+2025-04-19 23:08:00 [INFO] Starting API server
+2025-04-19 23:08:00 [INFO] Starting API server on port 8080
+2025-04-19 23:13:27 [INFO] Loaded 2 users
+2025-04-19 23:13:27 [INFO] Loaded 2 clients
+2025-04-19 23:13:27 [INFO] Loaded 3 AI models
+2025-04-19 23:13:27 [INFO] CRM System started
+2025-04-19 23:13:27 [INFO] Starting API server
+2025-04-19 23:13:27 [INFO] Starting API server on port 8080
+2025-04-19 23:15:46 [INFO] Loaded 2 users
+2025-04-19 23:15:46 [INFO] Loaded 2 clients
+2025-04-19 23:15:46 [INFO] Loaded 3 AI models
+2025-04-19 23:15:46 [INFO] CRM System started
+2025-04-19 23:15:46 [INFO] Starting API server
+2025-04-19 23:15:46 [INFO] Starting API server on port 8080
+2025-04-19 23:35:57 [INFO] Loaded 2 users
+2025-04-19 23:35:57 [INFO] Loaded 2 clients
+2025-04-19 23:35:57 [INFO] Loaded 3 AI models
+2025-04-19 23:35:57 [INFO] CRM System started
+2025-04-19 23:35:57 [INFO] Starting API server
+2025-04-19 23:35:57 [INFO] Starting API server on port 8080
+2025-04-20 01:12:07 [INFO] Loaded 2 users
+2025-04-20 01:12:07 [INFO] Loaded 2 clients
+2025-04-20 01:12:07 [INFO] Loaded 3 AI models
+2025-04-20 01:12:07 [INFO] CRM System started
+2025-04-20 01:12:07 [INFO] Starting API server
+2025-04-20 01:12:07 [INFO] Starting API server on port 8080
+2025-04-20 01:18:45 [INFO] Loaded 2 users
+2025-04-20 01:18:45 [INFO] Loaded 2 clients
+2025-04-20 01:18:45 [INFO] Loaded 3 AI models
+2025-04-20 01:18:45 [INFO] CRM System started
+2025-04-20 01:18:45 [INFO] Starting API server
+2025-04-20 01:18:45 [INFO] Starting API server on port 8080
+2025-04-20 01:19:41 [INFO] Loaded 2 users
+2025-04-20 01:19:41 [INFO] Loaded 2 clients
+2025-04-20 01:19:41 [INFO] Loaded 3 AI models
+2025-04-20 01:19:41 [INFO] CRM System started
+2025-04-20 01:19:41 [INFO] Starting API server
+2025-04-20 01:19:41 [INFO] Starting API server on port 8080
+2025-04-20 01:20:11 [INFO] Loaded 2 users
+2025-04-20 01:20:11 [INFO] Loaded 2 clients
+2025-04-20 01:20:11 [INFO] Loaded 3 AI models
+2025-04-20 01:20:11 [INFO] CRM System started
+2025-04-20 01:20:11 [INFO] Starting API server
+2025-04-20 01:20:11 [INFO] Starting API server on port 8080
+2025-04-20 03:35:49 [INFO] Loaded 2 users
+2025-04-20 03:35:49 [INFO] ClientService initialized with in-memory storage
+2025-04-20 03:35:49 [INFO] Loaded 3 AI models
+2025-04-20 03:35:49 [INFO] SimpleAPIServer initialized without database
+2025-04-20 03:35:49 [INFO] CRM System started
+2025-04-20 03:35:49 [INFO] Starting API server
+2025-04-20 03:35:49 [INFO] Starting server on port 8080
+2025-04-20 03:36:44 [INFO] User logged in: admin
+2025-04-20 03:37:06 [INFO] Loaded 2 users
+2025-04-20 03:37:06 [INFO] ClientService initialized with in-memory storage
+2025-04-20 03:37:06 [INFO] Loaded 3 AI models
+2025-04-20 03:37:06 [INFO] SimpleAPIServer initialized without database
+2025-04-20 03:37:06 [INFO] CRM System started
+2025-04-20 03:37:06 [INFO] Starting API server
+2025-04-20 03:37:06 [INFO] Starting server on port 8080
+2025-04-20 03:55:17 [INFO] Loaded 2 users
+2025-04-20 03:55:17 [INFO] ClientService initialized with in-memory storage
+2025-04-20 03:55:17 [INFO] Loaded 3 AI models
+2025-04-20 03:55:17 [INFO] SimpleAPIServer initialized without database
+2025-04-20 03:55:17 [INFO] CRM System started
+2025-04-20 03:55:17 [INFO] Starting API server
+2025-04-20 03:55:17 [INFO] Starting server on port 8080
+2025-04-20 03:55:38 [INFO] Loaded 2 users
+2025-04-20 03:55:38 [INFO] ClientService initialized with in-memory storage
+2025-04-20 03:55:38 [INFO] Loaded 3 AI models
+2025-04-20 03:55:38 [INFO] SimpleAPIServer initialized without database
+2025-04-20 03:55:38 [INFO] CRM System started
+2025-04-20 03:55:38 [INFO] Starting API server
+2025-04-20 03:55:38 [INFO] Starting server on port 8080
+2025-04-20 04:06:43 [INFO] Loaded 2 users
+2025-04-20 04:06:43 [INFO] ClientService initialized with in-memory storage
+2025-04-20 04:06:43 [INFO] Loaded 3 AI models
+2025-04-20 04:06:43 [INFO] SimpleAPIServer initialized without database
+2025-04-20 04:06:43 [INFO] CRM System started
+2025-04-20 04:06:43 [INFO] Starting API server
+2025-04-20 04:06:43 [INFO] Starting server on port 8080
+2025-04-20 04:09:17 [INFO] Loaded 2 users
+2025-04-20 04:09:17 [INFO] ClientService initialized with in-memory storage
+2025-04-20 04:09:17 [INFO] Loaded 3 AI models
+2025-04-20 04:09:17 [INFO] SimpleAPIServer initialized without database
+2025-04-20 04:09:17 [INFO] CRM System started
+2025-04-20 04:09:17 [INFO] Starting API server
+2025-04-20 04:09:17 [INFO] Starting server on port 8080
+2025-04-20 04:11:35 [INFO] Loaded 2 users
+2025-04-20 04:11:35 [INFO] ClientService initialized with in-memory storage
+2025-04-20 04:11:35 [INFO] Loaded 3 AI models
+2025-04-20 04:11:35 [INFO] SimpleAPIServer initialized without database
+2025-04-20 04:11:35 [INFO] CRM System started
+2025-04-20 04:11:35 [INFO] Starting API server
+2025-04-20 04:11:35 [INFO] Starting server on port 8080
+2025-04-20 04:14:38 [INFO] Loaded 2 users
+2025-04-20 04:14:38 [INFO] ClientService initialized with in-memory storage
+2025-04-20 04:14:38 [INFO] Loaded 3 AI models
+2025-04-20 04:14:38 [INFO] SimpleAPIServer initialized without database
+2025-04-20 04:14:38 [INFO] CRM System started
+2025-04-20 04:14:38 [INFO] Starting API server
+2025-04-20 04:14:38 [INFO] Starting server on port 8080
+2025-04-20 04:15:36 [INFO] Loaded 2 users
+2025-04-20 04:15:36 [INFO] ClientService initialized with in-memory storage
+2025-04-20 04:15:36 [INFO] Loaded 3 AI models
+2025-04-20 04:15:36 [INFO] SimpleAPIServer initialized without database
+2025-04-20 04:15:36 [INFO] CRM System started
+2025-04-20 04:15:36 [INFO] Starting API server
+2025-04-20 04:15:36 [INFO] Starting server on port 8080
+2025-04-20 04:16:00 [INFO] Loaded 2 users
+2025-04-20 04:16:00 [INFO] ClientService initialized with in-memory storage
+2025-04-20 04:16:00 [INFO] Loaded 3 AI models
+2025-04-20 04:16:00 [INFO] SimpleAPIServer initialized without database
+2025-04-20 04:16:00 [INFO] CRM System started
+2025-04-20 04:16:00 [INFO] Starting test API server
+2025-04-20 04:16:00 [INFO] Server configured, starting on port 8080
+2025-04-20 04:16:48 [WARNING] Failed login attempt: admin
+2025-04-20 04:17:52 [INFO] Loaded 2 users
+2025-04-20 04:17:52 [INFO] ClientService initialized with in-memory storage
+2025-04-20 04:17:52 [INFO] Loaded 3 AI models
+2025-04-20 04:17:52 [INFO] SimpleAPIServer initialized without database
+2025-04-20 04:17:52 [INFO] CRM System started
+2025-04-20 04:17:52 [INFO] Starting API server on port 8080
+2025-04-20 04:17:52 [INFO] Starting server on port 8080
+2025-04-20 04:18:09 [INFO] Loaded 2 users
+2025-04-20 04:18:09 [INFO] ClientService initialized with in-memory storage
+2025-04-20 04:18:09 [INFO] Loaded 3 AI models
+2025-04-20 04:18:09 [INFO] SimpleAPIServer initialized without database
+2025-04-20 04:18:09 [INFO] CRM System started
+2025-04-20 04:18:09 [INFO] Starting API server on port 8080
+2025-04-20 04:18:09 [INFO] Starting server on port 8080
+2025-04-20 04:18:44 [INFO] Loaded 2 users
+2025-04-20 04:18:44 [INFO] ClientService initialized with in-memory storage
+2025-04-20 04:18:44 [INFO] Loaded 3 AI models
+2025-04-20 04:18:44 [INFO] SimpleAPIServer initialized without database
+2025-04-20 04:18:44 [INFO] CRM System started
+2025-04-20 04:18:44 [INFO] Starting API server on port 8080
+2025-04-20 04:18:44 [INFO] Starting server on port 8080
+2025-04-20 04:20:32 [INFO] Loaded 2 users
+2025-04-20 04:20:32 [INFO] ClientService initialized with in-memory storage
+2025-04-20 04:20:32 [INFO] Loaded 3 AI models
+2025-04-20 04:20:32 [INFO] SimpleAPIServer initialized without database
+2025-04-20 04:20:32 [INFO] CRM System started
+2025-04-20 04:20:32 [INFO] Starting API server thread
+2025-04-20 04:20:32 [INFO] Before creating server
+2025-04-20 04:20:32 [INFO] Adding routes
+2025-04-20 04:20:32 [INFO] Starting to listen on port 8080
+2025-04-20 04:25:15 [INFO] Loaded 2 users
+2025-04-20 04:25:15 [INFO] ClientService initialized with in-memory storage
+2025-04-20 04:25:15 [INFO] Loaded 3 AI models
+2025-04-20 04:25:15 [INFO] SimpleAPIServer initialized without database
+2025-04-20 04:25:15 [INFO] CRM System started
+2025-04-20 04:25:15 [INFO] Starting API server thread
+2025-04-20 04:25:15 [INFO] Before creating server
+2025-04-20 04:25:15 [INFO] Adding routes
+2025-04-20 04:25:15 [INFO] Starting to listen on port 8080
+2025-04-20 04:28:34 [INFO] Loaded 2 users
+2025-04-20 04:28:34 [INFO] ClientService initialized with in-memory storage
+2025-04-20 04:28:34 [INFO] Loaded 3 AI models
+2025-04-20 04:28:34 [INFO] SimpleAPIServer initialized without database
+2025-04-20 04:28:34 [INFO] CRM System started
+2025-04-20 04:28:34 [INFO] Starting API server thread
+2025-04-20 04:28:34 [INFO] Before creating server
+2025-04-20 04:28:34 [INFO] Adding routes
+2025-04-20 04:28:34 [INFO] Starting to listen on port 8080

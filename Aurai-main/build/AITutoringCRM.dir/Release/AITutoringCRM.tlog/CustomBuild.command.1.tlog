@@ -1,0 +1,10 @@
+^C:\USERS\AYA JOUNI\DESKTOP\SPRING 2025\CP2 PROJECT\AURAI-MAIN\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/Aya Jouni/Desktop/Spring 2025/CP2 Project/Aurai-main" "-BC:/Users/Aya Jouni/Desktop/Spring 2025/CP2 Project/Aurai-main/build" --check-stamp-file "C:/Users/Aya Jouni/Desktop/Spring 2025/CP2 Project/Aurai-main/build/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

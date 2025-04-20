@@ -1,0 +1,28 @@
+[
+  {
+    "clientId": 1,
+    "firstName": "John",
+    "lastName": "Smith",
+    "email": "john.smith@example.com",
+    "phone": "555-1234",
+    "company": "Tech Innovations",
+    "position": "Data Scientist",
+    "aiModelsOfInterest": ["GPT-4", "DALL-E"],
+    "registrationDate": "2025-04-01",
+    "sessionsCompleted": 2,
+    "budget": 1000
+  },
+  {
+    "clientId": 2,
+    "firstName": "Sarah",
+    "lastName": "Davis",
+    "email": "sarah.davis@example.com",
+    "phone": "555-987-6543",
+    "company": "AI Solutions",
+    "position": "Project Manager",
+    "aiModelsOfInterest": ["Claude AI"],
+    "registrationDate": "2025-04-05",
+    "sessionsCompleted": 1,
+    "budget": 2000
+  }
+]
