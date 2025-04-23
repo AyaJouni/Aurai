@@ -1,4 +1,393 @@
 // API Service Layer
+// Login System Functionality
+const loginSystem = {
+    init() {
+        // Check if user is already logged in
+        const isLoggedIn = localStorage.getItem('aurai_logged_in');
+        
+        // If not logged in, create and show the login page
+        if (isLoggedIn !== 'true') {
+            this.showLoginPage();
+        } else {
+            // User is logged in, show the main content
+            document.querySelector('.container').style.display = 'flex';
+            
+            // Initialize the app
+            this.initializeApp();
+        }
+    },
+    
+    showLoginPage() {
+        // Hide the main container
+        document.querySelector('.container').style.display = 'none';
+        
+        // Create the login container if it doesn't exist
+        if (!document.getElementById('login-container')) {
+            const loginContainer = document.createElement('div');
+            loginContainer.id = 'login-container';
+            loginContainer.className = 'login-container';
+            loginContainer.innerHTML = `
+                <div class="animated-background">
+                    <div class="circle"></div>
+                    <div class="circle"></div>
+                    <div class="circle"></div>
+                </div>
+                <div class="login-box">
+                    <div class="login-header">
+                        <div class="aurai-logo">
+                            <i class="fas fa-brain"></i>
+                            <h1>AURAI</h1>
+                        </div>
+                        <div class="acronym">Advanced Understanding & Responsive AI Instruction</div>
+                    </div>
+                    <div class="login-form">
+                        <div class="welcome-message">
+                            <h2>Welcome to AURAI</h2>
+                            <p>Enter your credentials to access the AI Tutoring CRM system</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-user"></i>
+                                <input type="text" id="username" placeholder="Enter your username">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="password" placeholder="Enter your password">
+                            </div>
+                            <div id="error-message" class="error-message">Invalid username or password</div>
+                        </div>
+                        <button id="login-btn" class="login-btn">Sign In</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(loginContainer);
+            
+            // Add login styles to the head
+            this.addLoginStyles();
+            
+            // Add login event handlers
+            this.setupLoginEvents();
+        } else {
+            // If it exists just show it
+            document.getElementById('login-container').style.display = 'flex';
+        }
+    },
+    
+    setupLoginEvents() {
+        // Handle login button click
+        document.getElementById('login-btn').addEventListener('click', () => this.handleLogin());
+        
+        // Handle Enter key press in password field
+        document.getElementById('password').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.handleLogin();
+            }
+        });
+    },
+    
+    handleLogin() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        
+        if (username === 'admin' && password === 'admin123') {
+            // Store login state in local storage
+            localStorage.setItem('aurai_logged_in', 'true');
+            this.hideLoginPage();
+            
+            // Show welcome toast notification
+            Toast.success('Welcome to AURAI CRM System');
+        } else {
+            // Show error message
+            const errorMessage = document.getElementById('error-message');
+            errorMessage.style.display = 'block';
+            
+            // Shake the inputs
+            const inputs = document.querySelectorAll('.form-group input');
+            inputs.forEach(input => {
+                input.style.borderColor = 'var(--danger)';
+                setTimeout(() => {
+                    input.style.borderColor = 'var(--border-color)';
+                }, 1000);
+            });
+        }
+    },
+    
+    hideLoginPage() {
+        // Hide login container and show main content
+        document.getElementById('login-container').style.display = 'none';
+        document.querySelector('.container').style.display = 'flex';
+        
+        // Initialize the app
+        this.initializeApp();
+    },
+    
+    addLoginStyles() {
+        // Only add styles if they don't already exist
+        if (!document.getElementById('login-styles')) {
+            const style = document.createElement('style');
+            style.id = 'login-styles';
+            style.textContent = `
+                .login-container {
+                    display: flex;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: var(--background);
+                    z-index: 9999;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .login-box {
+                    width: 400px;
+                    background: var(--card-background);
+                    border-radius: var(--radius);
+                    box-shadow: var(--shadow-lg);
+                    overflow: hidden;
+                    animation: fadeIn 0.5s ease-out;
+                }
+
+                .login-header {
+                    background: var(--primary-gradient);
+                    padding: 2rem;
+                    text-align: center;
+                    color: white;
+                }
+
+                .aurai-logo {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-bottom: 1rem;
+                }
+
+                .aurai-logo i {
+                    font-size: 2.5rem;
+                    margin-right: 1rem;
+                }
+
+                .aurai-logo h1 {
+                    font-family: var(--font-heading);
+                    font-size: 2.5rem;
+                    margin: 0;
+                }
+
+                .login-form {
+                    padding: 2rem;
+                }
+
+                .welcome-message {
+                    text-align: center;
+                    margin-bottom: 1.5rem;
+                    animation: fadeIn 0.5s ease-out;
+                }
+
+                .welcome-message h2 {
+                    font-family: var(--font-heading);
+                    font-size: 1.5rem;
+                    color: var(--dark);
+                    margin-bottom: 0.5rem;
+                }
+
+                .welcome-message p {
+                    color: var(--secondary);
+                    font-size: 0.9rem;
+                }
+
+                .error-message {
+                    color: var(--danger);
+                    font-size: 0.9rem;
+                    margin-top: 0.5rem;
+                    display: none;
+                    animation: shake 0.5s;
+                }
+
+                .login-btn {
+                    display: block;
+                    width: 100%;
+                    padding: 0.75rem;
+                    background: var(--primary-gradient);
+                    color: white;
+                    border: none;
+                    border-radius: var(--radius);
+                    font-family: var(--font-heading);
+                    font-size: 1rem;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: var(--transition);
+                }
+
+                .login-btn:hover {
+                    background: var(--primary-dark);
+                    transform: translateY(-2px);
+                    box-shadow: var(--shadow);
+                }
+
+                .animated-background {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: -1;
+                    overflow: hidden;
+                }
+
+                .circle {
+                    position: absolute;
+                    border-radius: 50%;
+                    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.1));
+                    animation: float 8s infinite ease-in-out alternate;
+                }
+
+                .circle:nth-child(1) {
+                    width: 300px;
+                    height: 300px;
+                    top: -150px;
+                    left: -100px;
+                    animation-delay: 0s;
+                }
+
+                .circle:nth-child(2) {
+                    width: 200px;
+                    height: 200px;
+                    top: 50%;
+                    right: -100px;
+                    animation-delay: 2s;
+                }
+
+                .circle:nth-child(3) {
+                    width: 150px;
+                    height: 150px;
+                    bottom: -50px;
+                    left: 30%;
+                    animation-delay: 1s;
+                }
+
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(-20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+
+                @keyframes shake {
+                    0%, 100% { transform: translateX(0); }
+                    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                    20%, 40%, 60%, 80% { transform: translateX(5px); }
+                }
+
+                @keyframes float {
+                    0% { transform: translateY(0) rotate(0deg); }
+                    100% { transform: translateY(-20px) rotate(10deg); }
+                }
+
+                /* Responsive adjustments */
+                @media (max-width: 576px) {
+                    .login-box {
+                        width: 90%;
+                    }
+
+                    .aurai-logo i {
+                        font-size: 2rem;
+                    }
+
+                    .aurai-logo h1 {
+                        font-size: 2rem;
+                    }
+
+                    .login-header, .login-form {
+                        padding: 1.5rem;
+                    }
+                }
+            `;
+            
+            document.head.appendChild(style);
+        }
+    },
+    
+    // Add logout functionality
+    setupLogoutButton() {
+        // Get the user menu in the header
+        const userMenu = document.querySelector('.user-menu');
+        
+        // Check if logout button already exists
+        if (!document.getElementById('logout-btn')) {
+            // Create logout button
+            const logoutBtn = document.createElement('button');
+            logoutBtn.id = 'logout-btn';
+            logoutBtn.className = 'btn-link';
+            logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> Logout';
+            
+            // Add click event
+            logoutBtn.addEventListener('click', () => {
+                // Clear the login state
+                localStorage.removeItem('aurai_logged_in');
+                
+                // Show the login page
+                this.showLoginPage();
+                
+                // Reset form fields
+                if (document.getElementById('username')) {
+                    document.getElementById('username').value = '';
+                }
+                if (document.getElementById('password')) {
+                    document.getElementById('password').value = '';
+                }
+                if (document.getElementById('error-message')) {
+                    document.getElementById('error-message').style.display = 'none';
+                }
+            });
+            
+            // Insert it before the username span
+            const usernameSpan = userMenu.querySelector('.user-name');
+            userMenu.insertBefore(logoutBtn, usernameSpan);
+        }
+    },
+    
+    // Initialize application after successful login
+    initializeApp() {
+        // Add logout button to the header
+        this.setupLogoutButton();
+        
+        // Load dashboard data
+        loadClients();
+        loadTutors();
+        loadSessions();
+        loadMaterials();
+        loadAIModels();
+        
+        // Initialize search functionality
+        initializeSearchFunctionality();
+        
+        // Add export buttons
+        addExportButtons();
+        
+        // Update dashboard data
+        updateDashboard();
+        
+        // Set today as the minimum date for session scheduling
+        const today = new Date().toISOString().split('T')[0];
+        const sessionDateInput = document.getElementById('sessionDate');
+        if (sessionDateInput) {
+            sessionDateInput.min = today;
+        }
+        
+        // Animate AURAI logo
+        setTimeout(animateAuraiLetters, 500);
+    }
+};
+
+// Initialize the login system when the DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize login system
+    loginSystem.init();
+});
 const apiService = {
     baseUrl: 'https://localhost:8080/api',
     mockMode: true, // Set to false when your backend is ready
@@ -657,6 +1046,74 @@ function addExportButtons() {
     document.getElementById('materials-panel').querySelector('.panel-header').appendChild(materialsExportBtn);
 }
 
+// Dashboard Hero Update Function
+function updateDashboardHero() {
+    // Update hero statistics
+    const heroClientsCount = document.getElementById('hero-clients');
+    const heroTutorsCount = document.getElementById('hero-tutors');
+    const heroAIModelsCount = document.getElementById('hero-ai-models');
+    
+    if (heroClientsCount) {
+        heroClientsCount.textContent = clients ? clients.length : 0;
+    }
+    
+    if (heroTutorsCount) {
+        heroTutorsCount.textContent = tutors ? tutors.length : 0;
+    }
+    
+    if (heroAIModelsCount) {
+        // Use aiModels if available, otherwise default to 3
+        heroAIModelsCount.textContent = aiModels ? aiModels.length : 3;
+    }
+    
+    // Animate the AI network graphic in the hero section
+    animateAINetwork();
+}
+
+// This is referenced in your code but not defined, so adding it
+function updateDashboardStats() {
+    // Update dashboard counters
+    const totalClientsCountElement = document.getElementById('total-clients-count');
+    const totalTutorsCountElement = document.getElementById('total-tutors-count');
+    const sessionsThisMonthElement = document.getElementById('sessions-this-month');
+    const revenueThisMonthElement = document.getElementById('revenue-this-month');
+    
+    if (totalClientsCountElement) {
+        totalClientsCountElement.textContent = clients ? clients.length : 0;
+    }
+    
+    if (totalTutorsCountElement) {
+        totalTutorsCountElement.textContent = tutors ? tutors.length : 0;
+    }
+    
+    // Count sessions and revenue this month
+    if (sessionsThisMonthElement && revenueThisMonthElement) {
+        const thisMonth = new Date().getMonth() + 1;
+        const thisYear = new Date().getFullYear();
+        
+        let monthSessions = 0;
+        let monthRevenue = 0;
+        
+        if (sessions && sessions.length > 0) {
+            sessions.forEach(session => {
+                if (session.sessionDate) {
+                    const sessionDate = new Date(session.sessionDate);
+                    if (sessionDate.getMonth() + 1 === thisMonth && sessionDate.getFullYear() === thisYear) {
+                        monthSessions++;
+                        monthRevenue += session.sessionCost || 0;
+                    }
+                }
+            });
+        }
+        
+        sessionsThisMonthElement.textContent = monthSessions;
+        revenueThisMonthElement.textContent = `$${monthRevenue.toFixed(2)}`;
+    }
+    
+    // Also update the hero section
+    updateDashboardHero();
+}
+
 // Helper function to calculate session cost (for mock mode)
 function calculateSessionCost(sessionData) {
     if (!tutors || !sessionData.tutorId) return 0;
@@ -703,6 +1160,118 @@ function updateSessionCounts() {
     renderClientsTable();
     renderTutorsTable();
 }
+
+ function animateAuraiLetters() {
+    const letters = document.querySelectorAll('.aurai-full-name .highlight');
+    
+    letters.forEach((letter, index) => {
+      setTimeout(() => {
+        letter.classList.add('animate-pop');
+        
+        // Remove animation class after animation completes
+        setTimeout(() => {
+          letter.classList.remove('animate-pop');
+        }, 500);
+      }, index * 150);
+    });
+  }
+  
+  // Add animation keyframes to the document
+  function addAnimationStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes pop {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.3); }
+        100% { transform: scale(1); }
+      }
+      
+      .animate-pop {
+        display: inline-block;
+        animation: pop 0.5s ease;
+      }
+      
+      @keyframes pulse {
+        0% { transform: scale(1); opacity: 0.3; }
+        100% { transform: scale(1.05); opacity: 0.5; }
+      }
+      
+      @keyframes float {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-5px); }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+  
+  // Animate the AI network graphic
+  function animateAINetwork() {
+    // Add pulsing effect to circles
+    const circles = document.querySelectorAll('.circle');
+    circles.forEach((circle, index) => {
+      circle.style.animation = `pulse ${2 + index * 0.5}s infinite alternate ease-in-out`;
+    });
+    
+    // Add subtle movement to nodes
+    const nodes = document.querySelectorAll('.node');
+    nodes.forEach((node, index) => {
+      node.style.animation = `float ${3 + index * 0.7}s infinite alternate ease-in-out`;
+    });
+  }
+  
+  // Initialize on document ready
+  document.addEventListener('DOMContentLoaded', function() {
+    // Add animation styles
+    addAnimationStyles();
+    
+    // Initialize dashboard hero if it exists
+    if (document.getElementById('dashboard-hero')) {
+      updateDashboardHero();
+    }
+    
+    // Make sure clients and tutors are loaded
+    if (typeof loadClients === 'function') {
+      loadClients();
+    }
+    
+    if (typeof loadTutors === 'function') {
+      loadTutors();
+    }
+    
+    if (typeof loadSessions === 'function') {
+      loadSessions();
+    }
+    
+    if (typeof loadMaterials === 'function') {
+      loadMaterials();
+    }
+  });
+  
+  // Enhance existing functions to update the hero section
+  // Make sure to call updateDashboardHero when loading data
+  const originalLoadClients = window.loadClients;
+  window.loadClients = async function() {
+    if (typeof originalLoadClients === 'function') {
+      await originalLoadClients();
+    }
+    updateDashboardHero();
+  };
+  
+  const originalLoadTutors = window.loadTutors;
+  window.loadTutors = async function() {
+    if (typeof originalLoadTutors === 'function') {
+      await originalLoadTutors();
+    }
+    updateDashboardHero();
+  };
+  
+  const originalLoadAIModels = window.loadAIModels;
+  window.loadAIModels = async function() {
+    if (typeof originalLoadAIModels === 'function') {
+      await originalLoadAIModels();
+    }
+    updateDashboardHero();
+  };
 
 // Helper Functions
 function formatDate(dateString) {
@@ -3281,9 +3850,50 @@ function mockMaterials() {
     updateDashboardMaterials();
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    const aboutBtn = document.getElementById('about-btn');
+    const aboutModal = document.getElementById('about-modal');
+    const closeModal = document.getElementById('close-modal');
+    
+    if (aboutBtn && aboutModal) {
+      // Open modal when about button is clicked
+      aboutBtn.addEventListener('click', function() {
+        aboutModal.classList.add('show');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+        
+        // Animate letters when modal opens
+        setTimeout(animateAuraiLetters, 300);
+      });
+      
+      // Close modal when close button is clicked
+      if (closeModal) {
+        closeModal.addEventListener('click', function() {
+          aboutModal.classList.remove('show');
+          document.body.style.overflow = ''; // Restore scrolling
+        });
+      }
+      
+      // Close modal when clicking outside the content
+      aboutModal.addEventListener('click', function(e) {
+        if (e.target === aboutModal) {
+          aboutModal.classList.remove('show');
+          document.body.style.overflow = ''; // Restore scrolling
+        }
+      });
+      
+      // Close modal with Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && aboutModal.classList.contains('show')) {
+          aboutModal.classList.remove('show');
+          document.body.style.overflow = ''; // Restore scrolling
+        }
+      });
+    }
+  });
+
 // Modify the existing document ready event listener to include export buttons
 document.addEventListener('DOMContentLoaded', function() {
-    // Existing initialization code...
+ 
     loadClients();
     loadTutors();
     loadSessions();
@@ -3296,8 +3906,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Set today as the minimum date for session scheduling
     const today = new Date().toISOString().split('T')[0];
-    document.getElementById('sessionDate').min = today;
+    const sessionDateInput = document.getElementById('sessionDate');
+    if (sessionDateInput) {
+        sessionDateInput.min = today;
+    }
     
-    // Welcome message
-    Toast.info('Welcome to AI Tutoring CRM');
 });
