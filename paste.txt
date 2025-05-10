@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURAI - AI Tutoring CRM</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-light: #60a5fa;
+            --primary-dark: #2563eb;
+            --primary-gradient: linear-gradient(135deg, #3b82f6, #2563eb);
+            --accent: #8b5cf6;
+            --accent-gradient: linear-gradient(135deg, #8b5cf6, #6d28d9);
+            --light: #f3f4f6;
+            --dark: #111827;
+            --danger: #dc2626;
+            --border-color: #e5e7eb;
+            --background: #f9fafb;
+            --card-background: #ffffff;
+            --shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --radius: 0.5rem;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-heading: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --transition: all 0.2s ease-in-out;
+        }
+
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-main);
+            background-color: var(--background);
+        }
+
+        .login-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-box {
+            width: 400px;
+            background: var(--card-background);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .login-header {
+            background: var(--primary-gradient);
+            padding: 2rem;
+            text-align: center;
+            color: white;
+        }
+
+        .aurai-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .aurai-logo i {
+            font-size: 2.5rem;
+            margin-right: 1rem;
+        }
+
+        .aurai-logo h1 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        .acronym {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            letter-spacing: 0.5px;
+        }
+
+        .login-form {
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group .input-wrapper {
+            position: relative;
+        }
+
+        .form-group .input-wrapper i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .login-btn {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .login-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .error-message {
+            color: var(--danger);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+            animation: shake 0.5s;
+        }
+
+        .welcome-message {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .welcome-message h2 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-message p {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .animated-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.1));
+            animation: float 8s infinite ease-in-out alternate;
+        }
+
+        .circle:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .circle:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            right: -100px;
+            animation-delay: 2s;
+        }
+
+        .circle:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: -50px;
+            left: 30%;
+            animation-delay: 1s;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 576px) {
+            .login-box {
+                width: 90%;
+            }
+
+            .aurai-logo i {
+                font-size: 2rem;
+            }
+
+            .aurai-logo h1 {
+                font-size: 2rem;
+            }
+
+            .login-header, .login-form {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="login-container" class="login-container">
+        <div class="animated-background">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+        <div class="login-box">
+            <div class="login-header">
+                <div class="aurai-logo">
+                    <i class="fas fa-brain"></i>
+                    <h1>AURAI</h1>
+                </div>
+                <div class="acronym">Advanced Understanding & Responsive AI Instruction</div>
+            </div>
+            <div class="login-form">
+                <div class="welcome-message">
+                    <h2>Welcome to AURAI</h2>
+                    <p>Enter your credentials to access the AI Tutoring CRM system</p>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" placeholder="Enter your username">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="Enter your password">
+                    </div>
+                    <div id="error-message" class="error-message">Invalid username or password</div>
+                </div>
+                <button id="login-btn" class="login-btn">Sign In</button>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <!-- Updated Header with AURAI Branding -->
+        <header>
+            <div class="logo">
+                <i class="fas fa-brain"></i>
+                <div class="brand-text">
+                    <h1>AURAI</h1>
+                    <div class="acronym">Advanced Understanding & Responsive AI Instruction</div>
+                </div>
+                <div class="info-tooltip">
+                    <i class="fas fa-info-circle"></i>
+                    <div class="tooltip-content">
+                        <h4>What is AURAI?</h4>
+                        <p><strong>A</strong>dvanced <strong>U</strong>nderstanding & <strong>R</strong>esponsive <strong>AI</strong> <strong>I</strong>nstruction</p>
+                        <p>Our platform facilitates the teaching and learning of advanced AI models through personalized, responsive instruction methods.</p>
+                        <div class="meaning-breakdown">
+                            <div class="meaning-item">
+                                <span class="letter">A</span>
+                                <span class="definition">Advanced</span>
+                                <span class="description">Cutting-edge AI technologies</span>
+                            </div>
+                            <div class="meaning-item">
+                                <span class="letter">U</span>
+                                <span class="definition">Understanding</span>
+                                <span class="description">Deep comprehension of AI concepts</span>
+                            </div>
+                            <div class="meaning-item">
+                                <span class="letter">R</span>
+                                <span class="definition">Responsive</span>
+                                <span class="description">Interactive and adaptable learning</span>
+                            </div>
+                            <div class="meaning-item">
+                                <span class="letter">AI</span>
+                                <span class="definition">Artificial Intelligence</span>
+                                <span class="description">The focus of our education</span>
+                            </div>
+                            <div class="meaning-item">
+                                <span class="letter">I</span>
+                                <span class="definition">Instruction</span>
+                                <span class="description">Expert-guided teaching methodology</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="inspiration-quote">
+                "Empowering minds through AI knowledge"
+            </div>
+            <div class="user-menu">
+                <button id="about-btn" class="btn-link"><i class="fas fa-info-circle"></i> About AURAI</button>
+                <span class="user-name">Admin User</span>
+                <div class="avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <nav class="sidebar">
+                <ul>
+                    <li class="active" data-panel="dashboard-panel">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </li>
+                    <li data-panel="tutors-panel">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Tutors</span>
+                    </li>
+                    <li data-panel="clients-panel">
+                        <i class="fas fa-users"></i>
+                        <span>Clients</span>
+                    </li>
+                    <li data-panel="sessions-panel">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Sessions</span>
+                    </li>
+                    <li data-panel="materials-panel">
+                        <i class="fas fa-book"></i>
+                        <span>Learning Materials</span>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="content">
+                <!-- Dashboard Panel -->
+                <div id="dashboard-panel" class="panel active">
+                    <h2 class="panel-title">Dashboard</h2>
+                    
+                    <!-- New Hero Section with AURAI Meaning -->
+                    <div id="dashboard-hero" class="dashboard-hero">
+                        <div class="hero-content">
+                            <h1>Welcome to AURAI</h1>
+                            <div class="aurai-meaning">
+                                <div class="meaning-letter">A</div>
+                                <div class="meaning-letter">U</div>
+                                <div class="meaning-letter">R</div>
+                                <div class="meaning-letter">AI</div>
+                                <div class="meaning-letter">I</div>
+                                <div class="meaning-words">
+                                    <span>Advanced</span>
+                                    <span>Understanding &</span>
+                                    <span>Responsive</span>
+                                    <span>Artificial Intelligence</span>
+                                    <span>Instruction</span>
+                                </div>
+                            </div>
+                            <p class="hero-tagline">Your complete AI Tutoring Center Management System</p>
+                            <div class="hero-stats">
+                                <div class="hero-stat">
+                                    <i class="fas fa-robot"></i>
+                                    <span id="hero-ai-models">3</span>
+                                    <label>AI Models</label>
+                                </div>
+                                <div class="hero-stat">
+                                    <i class="fas fa-users"></i>
+                                    <span id="hero-clients">0</span>
+                                    <label>Clients</label>
+                                </div>
+                                <div class="hero-stat">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                    <span id="hero-tutors">0</span>
+                                    <label>Tutors</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hero-image">
+                            <div class="ai-graphic">
+                                <div class="circle circle-1"></div>
+                                <div class="circle circle-2"></div>
+                                <div class="circle circle-3"></div>
+                                <div class="node node-1"><i class="fas fa-microchip"></i></div>
+                                <div class="node node-2"><i class="fas fa-robot"></i></div>
+                                <div class="node node-3"><i class="fas fa-brain"></i></div>
+                                <div class="node node-4"><i class="fas fa-cogs"></i></div>
+                                <div class="connection line-1"></div>
+                                <div class="connection line-2"></div>
+                                <div class="connection line-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-container">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Total Clients</h3>
+                                <p id="total-clients-count">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Total Tutors</h3>
+                                <p id="total-tutors-count">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Sessions This Month</h3>
+                                <p id="sessions-this-month">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Revenue This Month</h3>
+                                <p id="revenue-this-month">$0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-bottom">
+                        <div class="upcoming-sessions">
+                            <h3>Upcoming Sessions</h3>
+                            <div class="table-wrapper">
+                                <table id="dashboard-sessions-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Client</th>
+                                            <th>Tutor</th>
+                                            <th>Platform</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dashboard-sessions-list">
+                                        <!-- Sessions will be loaded here -->
+                                        <tr>
+                                            <td colspan="5" class="loading-message">
+                                                <i class="fas fa-spinner fa-spin"></i> Loading sessions...
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="popular-materials">
+                            <h3>Popular Learning Materials</h3>
+                            <div class="material-cards" id="popular-materials-list">
+                                <!-- Learning materials will be loaded here -->
+                                <div class="loading-container">
+                                    <i class="fas fa-spinner fa-spin"></i> Loading materials...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tutors Panel -->
+                <div id="tutors-panel" class="panel">
+                    <div class="panel-header">
+                        <h2 class="panel-title">Tutors</h2>
+                        <div class="header-actions">
+                            <div class="search-container">
+                                <input type="text" id="tutor-search-input" placeholder="Search tutors...">
+                                <select id="tutor-search-type">
+                                    <option value="name">Name</option>
+                                    <option value="email">Email</option>
+                                    <option value="specialization">Specialization</option>
+                                    <option value="expertise">Domain Expertise</option>
+                                </select>
+                                <button id="tutor-search-btn" class="btn btn-primary">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
+                                <button id="clear-tutor-search" class="clear-search">
+                                    <i class="fas fa-times"></i> Clear
+                                </button>
+                            </div>
+                            <button id="add-tutor-btn" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Add Tutor
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tutor Add/Edit Form -->
+                    <div id="tutor-form" class="form-container" style="display: none;">
+                        <div class="form-header">
+                            <h3 id="tutor-form-title">Add New Tutor</h3>
+                            <button id="close-tutor-form" class="close-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="form-body">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="tutorFirstName">First Name</label>
+                                    <input type="text" id="tutorFirstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tutorLastName">Last Name</label>
+                                    <input type="text" id="tutorLastName" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="tutorEmail">Email</label>
+                                    <input type="email" id="tutorEmail" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tutorPhone">Phone</label>
+                                    <input type="tel" id="tutorPhone">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="tutorQualification">Qualification</label>
+                                    <input type="text" id="tutorQualification" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tutorExperienceYears">Years of Experience</label>
+                                    <input type="number" id="tutorExperienceYears" min="0" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="tutorHourlyRate">Hourly Rate ($)</label>
+                                    <input type="number" id="tutorHourlyRate" min="0" step="0.01" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tutorUsername">Username (for login)</label>
+                                    <input type="text" id="tutorUsername">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="tutorPassword">Password</label>
+                                <input type="password" id="tutorPassword">
+                                <small>Leave blank to keep current password when editing.</small>
+                            </div>
+                            <div class="form-group">
+                                <label>AI Specializations</label>
+                                <div id="tutorSpecializations" class="tag-input-container">
+                                    <input type="text" id="specializationInput" placeholder="Type and press Enter to add">
+                                    <div id="specializationTags" class="tags-container"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Domain Expertise</label>
+                                <div id="tutorExpertise" class="tag-input-container">
+                                    <input type="text" id="expertiseInput" placeholder="Type and press Enter to add">
+                                    <div id="expertiseTags" class="tags-container"></div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button id="save-tutor-btn" class="btn btn-primary">Save Tutor</button>
+                                <button id="cancel-tutor-btn" class="btn btn-secondary">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tutors Table -->
+                    <div id="tutors-loading" class="loading-container">
+                        <i class="fas fa-spinner fa-spin"></i> Loading tutors...
+                    </div>
+                    <div id="tutors-message" class="message" style="display: none;"></div>
+                    <div class="table-wrapper">
+                        <table id="tutors-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>AI Specializations</th>
+                                    <th>Domain Expertise</th>
+                                    <th>Experience</th>
+                                    <th>Hourly Rate</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tutors-list">
+                                <!-- Tutors will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Clients Panel -->
+                <div id="clients-panel" class="panel">
+                    <div class="panel-header">
+                        <h2 class="panel-title">Clients</h2>
+                        <div class="header-actions">
+                            <div class="search-container">
+                                <input type="text" id="client-search-input" placeholder="Search clients...">
+                                <select id="client-search-type">
+                                    <option value="name">Name</option>
+                                    <option value="email">Email</option>
+                                    <option value="company">Company</option>
+                                </select>
+                                <button id="client-search-btn" class="btn btn-primary">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
+                                <button id="clear-client-search" class="clear-search">
+                                    <i class="fas fa-times"></i> Clear
+                                </button>
+                            </div>
+                            <button id="add-client-btn" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Add Client
+                            </button>
+                        </div>
+                    </div>
+                
+                    <!-- Client Add/Edit Form -->
+                    <div id="client-form" class="form-container" style="display: none;">
+                        <div class="form-header">
+                            <h3 id="client-form-title">Add New Client</h3>
+                            <button id="close-client-form" class="close-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="form-body">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" id="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" id="lastName" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <input type="tel" id="phone">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="company">Company</label>
+                                    <input type="text" id="company">
+                                </div>
+                                <div class="form-group">
+                                    <label for="position">Position</label>
+                                    <input type="text" id="position">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="budget">Budget ($)</label>
+                                <input type="number" id="budget" min="0" step="10">
+                            </div>
+                            <div class="form-group">
+                                <label>AI Models of Interest</label>
+                                <div id="clientAIModels" class="tag-input-container">
+                                    <input type="text" id="aiModelInput" placeholder="Type and press Enter to add">
+                                    <div id="aiModelTags" class="tags-container"></div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button id="save-client-btn" class="btn btn-primary">Save Client</button>
+                                <button id="cancel-client-btn" class="btn btn-secondary">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Clients Table -->
+                    <div id="clients-loading" class="loading-container">
+                        <i class="fas fa-spinner fa-spin"></i> Loading clients...
+                    </div>
+                    <div id="clients-message" class="message" style="display: none;"></div>
+                    <div class="table-wrapper">
+                        <table id="clients-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Company</th>
+                                    <th>AI Models</th>
+                                    <th>Sessions</th>
+                                    <th>Budget</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="clients-list">
+                                <!-- Clients will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Sessions Panel -->
+                <div id="sessions-panel" class="panel">
+                    <div class="panel-header">
+                        <h2 class="panel-title">Tutoring Sessions</h2>
+                        <button id="add-session-btn" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> New Session
+                        </button>
+                    </div>
+                
+                    <!-- Session Add/Edit Form -->
+                    <div id="session-form" class="form-container" style="display: none;">
+                        <div class="form-header">
+                            <h3 id="session-form-title">Schedule New Session</h3>
+                            <button id="close-session-form" class="close-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="form-body">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="clientSelect">Client</label>
+                                    <select id="clientSelect" required>
+                                        <option value="">Select a client</option>
+                                        <!-- Client options will be loaded here -->
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tutorSelect">Tutor</label>
+                                    <select id="tutorSelect" required>
+                                        <option value="">Select a tutor</option>
+                                        <!-- Tutor options will be loaded here -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="sessionDate">Date</label>
+                                    <input type="date" id="sessionDate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="startTime">Start Time</label>
+                                    <input type="time" id="startTime" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="duration">Duration (minutes)</label>
+                                    <input type="number" id="duration" min="30" step="15" value="60" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="sessionStatus">Session Status</label>
+                                <select id="sessionStatus" class="form-control">
+                                    <option value="Scheduled">Scheduled</option>
+                                    <option value="Completed">Completed</option>
+                                    <option value="Cancelled">Cancelled</option>
+                                    <option value="No-Show">No-Show</option>
+                                    <option value="Rescheduled">Rescheduled</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="sessionObjectives">Learning Objectives</label>
+                                <textarea id="sessionObjectives" rows="3"></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Session Type</label>
+                                    <div class="radio-group">
+                                        <div class="radio-option">
+                                            <input type="radio" id="remoteSession" name="sessionType" value="remote" checked>
+                                            <label for="remoteSession">Remote</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="inPersonSession" name="sessionType" value="in-person">
+                                            <label for="inPersonSession">In-Person</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="platformGroup">
+                                    <label for="platform">Platform</label>
+                                    <select id="platform">
+                                        <option>Zoom</option>
+                                        <option>Microsoft Teams</option>
+                                        <option>Google Meet</option>
+                                        <option>Discord</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button id="save-session-btn" class="btn btn-primary">Schedule Session</button>
+                                <button id="cancel-session-btn" class="btn btn-secondary">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Sessions Table -->
+                    <div id="sessions-loading" class="loading-container">
+                        <i class="fas fa-spinner fa-spin"></i> Loading sessions...
+                    </div>
+                    <div id="sessions-message" class="message" style="display: none;"></div>
+                    <div class="table-wrapper">
+                        <table id="sessions-table">
+                            <thead>
+                                <tr>
+                                    <th>Client</th>
+                                    <th>Tutor</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sessions-list">
+                                <!-- Sessions will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Learning Materials Panel -->
+                <div id="materials-panel" class="panel">
+                    <div class="panel-header">
+                        <h2 class="panel-title">Learning Materials</h2>
+                        <button id="add-material-btn" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Add Material
+                        </button>
+                    </div>
+                
+                    <!-- Material Add/Edit Form -->
+                    <div id="material-form" class="form-container" style="display: none;">
+                        <div class="form-header">
+                            <h3 id="material-form-title">Add New Learning Material</h3>
+                            <button id="close-material-form" class="close-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="form-body">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="materialTitle">Title</label>
+                                    <input type="text" id="materialTitle" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="materialAuthor">Author</label>
+                                    <input type="text" id="materialAuthor" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="materialDescription">Description</label>
+                                <textarea id="materialDescription" rows="3"></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="materialType">Type</label>
+                                    <select id="materialType" required>
+                                        <option value="Document">Document</option>
+                                        <option value="Video">Video</option>
+                                        <option value="Interactive">Interactive</option>
+                                        <option value="Exercise">Exercise</option>
+                                        <option value="Quiz">Quiz</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="materialFormat">Format</label>
+                                    <select id="materialFormat" required>
+                                        <option value="PDF">PDF</option>
+                                        <option value="MP4">MP4</option>
+                                        <option value="Notebook">Notebook</option>
+                                        <option value="HTML">HTML</option>
+                                        <option value="PPTX">PPTX</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="materialDifficulty">Difficulty Level</label>
+                                    <select id="materialDifficulty" required>
+                                        <option value="1">1 - Beginner</option>
+                                        <option value="2">2 - Easy</option>
+                                        <option value="3">3 - Intermediate</option>
+                                        <option value="4">4 - Advanced</option>
+                                        <option value="5">5 - Expert</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="materialTime">Estimated Time (minutes)</label>
+                                    <input type="number" id="materialTime" min="5" step="5" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="materialUrl">URL (optional)</label>
+                                    <input type="url" id="materialUrl">
+                                </div>
+                                <div class="form-group">
+                                    <label for="materialPath">Local Path (optional)</label>
+                                    <input type="text" id="materialPath">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Associated AI Models</label>
+                                <div id="materialAIModelsSelect" class="checkbox-group">
+                                    <!-- AI model options will be loaded here -->
+                                    <div class="loading-inline">
+                                        <i class="fas fa-spinner fa-spin"></i> Loading AI models...
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Tags</label><div id="materialTags" class="tag-input-container">
+                                    <input type="text" id="tagInput" placeholder="Type and press Enter to add">
+                                    <div id="materialTagsList" class="tags-container"></div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button id="save-material-btn" class="btn btn-primary">Save Material</button>
+                                <button id="cancel-material-btn" class="btn btn-secondary">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Materials Table -->
+                    <div id="materials-loading" class="loading-container">
+                        <i class="fas fa-spinner fa-spin"></i> Loading materials...
+                    </div>
+                    <div id="materials-message" class="message" style="display: none;"></div>
+                    <div class="table-wrapper">
+                        <table id="materials-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Type</th>
+                                    <th>Format</th>
+                                    <th>Author</th>
+                                    <th>Difficulty</th>
+                                    <th>Est. Time</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="materials-list">
+                                <!-- Materials will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- About Modal -->
+    <div id="about-modal" class="about-modal">
+        <div class="modal-content">
+            <button id="close-modal" class="close-modal"><i class="fas fa-times"></i></button>
+            
+            <div class="aurai-logo-large">
+                <i class="fas fa-brain"></i>
+                <h2>AURAI</h2>
+            </div>
+            
+            <h3>What is AURAI?</h3>
+            
+            <p class="aurai-full-name">
+                <span class="highlight">A</span>dvanced 
+                <span class="highlight">U</span>nderstanding & 
+                <span class="highlight">R</span>esponsive 
+                <span class="highlight">AI</span> 
+                <span class="highlight">I</span>nstruction
+            </p>
+            
+            <p>AURAI is your complete AI Tutoring Center Management System designed to help educational institutions effectively manage their AI instruction programs. Our platform facilitates the teaching and learning of advanced AI models through personalized, responsive instruction methods.</p>
+            
+            <div class="meaning-cards">
+                <div class="meaning-card">
+                    <div class="meaning-letter">A</div>
+                    <h4>Advanced</h4>
+                    <p>Cutting-edge AI technologies and teaching methodologies that stay ahead of industry trends.</p>
+                </div>
+                
+                <div class="meaning-card">
+                    <div class="meaning-letter">U</div>
+                    <h4>Understanding</h4>
+                    <p>Fostering deep comprehension of AI concepts, not just surface-level knowledge.</p>
+                </div>
+                
+                <div class="meaning-card">
+                    <div class="meaning-letter">R</div>
+                    <h4>Responsive</h4>
+                    <p>Interactive and adaptable learning experiences tailored to each student's needs.</p>
+                </div>
+                
+                <div class="meaning-card">
+                    <div class="meaning-letter">AI</div>
+                    <h4>Artificial Intelligence</h4>
+                    <p>The core subject matter and technological focus of our educational platform.</p>
+                </div>
+                
+                <div class="meaning-card">
+                    <div class="meaning-letter">I</div>
+                    <h4>Instruction</h4>
+                    <p>Expert-guided teaching methodologies that ensure effective knowledge transfer.</p>
+                </div>
+            </div>
+            
+            <h3>Our Mission</h3>
+            <p>To empower individuals and organizations with the knowledge and skills needed to harness the power of AI technologies through personalized, high-quality instruction.</p>
+            
+            <div class="version-info">
+                <p>Version 1.0.0 | &copy; 2025 AURAI</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast notifications container -->
+    <div id="toast-container"></div>
+    
+    <!-- Scripts -->
+    <script src="app.js"></script>
+    
+    <!-- Additional Scripts for AURAI meaning functionality -->
+    <script>
+     document.addEventListener('DOMContentLoaded', function() {
+            // Hide the main content and show the login page
+            document.querySelector('.container').style.display = 'none';
+            document.getElementById('login-container').style.display = 'flex';
+            
+            // Check if user is already logged in
+            const isLoggedIn = localStorage.getItem('aurai_logged_in');
+            if (isLoggedIn === 'true') {
+                showMainContent();
+            }
+            
+            // Handle login button click
+            document.getElementById('login-btn').addEventListener('click', function() {
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                if (username === 'admin' && password === 'admin123') {
+                    // Store login state in local storage
+                    localStorage.setItem('aurai_logged_in', 'true');
+                    showMainContent();
+                } else {
+                    // Show error message
+                    const errorMessage = document.getElementById('error-message');
+                    errorMessage.style.display = 'block';
+                    
+                    // Shake the inputs
+                    const inputs = document.querySelectorAll('.form-group input');
+                    inputs.forEach(input => {
+                        input.style.borderColor = 'var(--danger)';
+                        setTimeout(() => {
+                            input.style.borderColor = 'var(--border-color)';
+                        }, 1000);
+                    });
+                }
+            });
+            
+            // Handle Enter key press in password field
+            document.getElementById('password').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    document.getElementById('login-btn').click();
+                }
+            });
+            
+            // Function to show main content
+            function showMainContent() {
+                document.getElementById('login-container').style.display = 'none';
+                document.querySelector('.container').style.display = 'flex';
+                
+                // Show welcome toast notification
+                if (typeof Toast !== 'undefined') {
+                    Toast.success('Welcome to AURAI CRM System');
+                }
+            }
+        });
+    // About modal functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const aboutBtn = document.getElementById('about-btn');
+      const aboutModal = document.getElementById('about-modal');
+      const closeModal = document.getElementById('close-modal');
+      
+      if (aboutBtn && aboutModal) {
+        // Open modal when about button is clicked
+        aboutBtn.addEventListener('click', function() {
+          aboutModal.classList.add('show');
+          document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+          
+          // Animate letters when modal opens
+          setTimeout(animateAuraiLetters, 300);
+        });
+        
+        // Close modal when close button is clicked
+        if (closeModal) {
+          closeModal.addEventListener('click', function() {
+            aboutModal.classList.remove('show');
+            document.body.style.overflow = ''; // Restore scrolling
+          });
+        }
+        
+        // Close modal when clicking outside the content
+        aboutModal.addEventListener('click', function(e) {
+          if (e.target === aboutModal) {
+            aboutModal.classList.remove('show');
+            document.body.style.overflow = ''; // Restore scrolling
+          }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && aboutModal.classList.contains('show')) {
+            aboutModal.classList.remove('show');
+            document.body.style.overflow = ''; // Restore scrolling
+          }
+        });
+      }
+      
+      // Add animation styles for letters
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes pop {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.3); }
+          100% { transform: scale(1); }
+        }
+        
+        .animate-pop {
+          display: inline-block;
+          animation: pop 0.5s ease;
+        }
+        
+        @keyframes pulse {
+          0% { transform: scale(1); opacity: 0.3; }
+          100% { transform: scale(1.05); opacity: 0.5; }
+        }
+        
+        @keyframes float {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(-5px); }
+        }
+      `;
+      document.head.appendChild(style);
+      
+      // Function to animate AURAI letters
+      function animateAuraiLetters() {
+        const letters = document.querySelectorAll('.aurai-full-name .highlight');
+        
+        letters.forEach((letter, index) => {
+          setTimeout(() => {
+            letter.classList.add('animate-pop');
+            
+            // Remove animation class after animation completes
+            setTimeout(() => {
+              letter.classList.remove('animate-pop');
+            }, 500);
+          }, index * 150);
+        });
+      }
+      
+      // Initialize dashboard hero animations
+      function initDashboardAnimations() {
+        // Add pulsing effect to circles in AI graphic
+        const circles = document.querySelectorAll('.circle');
+        circles.forEach((circle, index) => {
+          circle.style.animation = `pulse ${2 + index * 0.5}s infinite alternate ease-in-out`;
+        });
+        
+        // Add subtle movement to nodes
+        const nodes = document.querySelectorAll('.node');
+        nodes.forEach((node, index) => {
+          node.style.animation = `float ${3 + index * 0.7}s infinite alternate ease-in-out`;
+        });
+      }
+      
+      // Run dashboard animations on load
+      initDashboardAnimations();
+    });
+    </script>
+</body>
+
+</html>

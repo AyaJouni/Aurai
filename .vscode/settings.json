@@ -24,6 +24,8 @@
         "istream": "cpp",
         "limits": "cpp",
         "new": "cpp",
-        "ostream": "cpp"
-    }
+        "ostream": "cpp",
+        "xstring": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURAI - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-light: #60a5fa;
+            --primary-dark: #2563eb;
+            --primary-gradient: linear-gradient(135deg, #3b82f6, #2563eb);
+            --accent: #8b5cf6;
+            --accent-gradient: linear-gradient(135deg, #8b5cf6, #6d28d9);
+            --light: #f3f4f6;
+            --dark: #111827;
+            --danger: #dc2626;
+            --border-color: #e5e7eb;
+            --background: #f9fafb;
+            --card-background: #ffffff;
+            --shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --radius: 0.5rem;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-heading: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --transition: all 0.2s ease-in-out;
+        }
+
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-main);
+            background-color: var(--background);
+        }
+
+        .login-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-box {
+            width: 400px;
+            background: var(--card-background);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .login-header {
+            background: var(--primary-gradient);
+            padding: 2rem;
+            text-align: center;
+            color: white;
+        }
+
+        .aurai-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .aurai-logo i {
+            font-size: 2.5rem;
+            margin-right: 1rem;
+        }
+
+        .aurai-logo h1 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        .acronym {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            letter-spacing: 0.5px;
+        }
+
+        .login-form {
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group .input-wrapper {
+            position: relative;
+        }
+
+        .form-group .input-wrapper i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .login-btn {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .login-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .error-message {
+            color: var(--danger);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+            animation: shake 0.5s;
+        }
+
+        .welcome-message {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .welcome-message h2 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-message p {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            10%,
+            30%,
+            50%,
+            70%,
+            90% {
+                transform: translateX(-5px);
+            }
+
+            20%,
+            40%,
+            60%,
+            80% {
+                transform: translateX(5px);
+            }
+        }
+
+        .animated-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.1));
+            animation: float 8s infinite ease-in-out alternate;
+        }
+
+        .circle:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .circle:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            right: -100px;
+            animation-delay: 2s;
+        }
+
+        .circle:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: -50px;
+            left: 30%;
+            animation-delay: 1s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 576px) {
+            .login-box {
+                width: 90%;
+            }
+
+            .aurai-logo i {
+                font-size: 2rem;
+            }
+
+            .aurai-logo h1 {
+                font-size: 2rem;
+            }
+
+            .login-header,
+            .login-form {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="login-container" class="login-container">
+        <div class="animated-background">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+        <div class="login-box">
+            <div class="login-header">
+                <div class="aurai-logo">
+                    <i class="fas fa-brain"></i>
+                    <h1>AURAI</h1>
+                </div>
+                <div class="acronym">Advanced Understanding & Responsive AI Instruction</div>
+            </div>
+            <div class="login-form">
+                <div class="welcome-message">
+                    <h2>Welcome to AURAI</h2>
+                    <p>Enter your credentials to access the AI Tutoring CRM system</p>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" placeholder="Enter your username">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="Enter your password">
+                    </div>
+                    <div id="error-message" class="error-message">Invalid username or password</div>
+                </div>
+                <button id="login-btn" class="login-btn">Sign In</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Hide the main content and show the login page
+            document.querySelector('.container').style.display = 'none';
+            document.getElementById('login-container').style.display = 'flex';
+
+            // Check if user is already logged in
+            const isLoggedIn = localStorage.getItem('aurai_logged_in');
+            if (isLoggedIn === 'true') {
+                showMainContent();
+            }
+
+            // Handle login button click
+            document.getElementById('login-btn').addEventListener('click', function () {
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+
+                if (username === 'admin' && password === 'admin123') {
+                    // Store login state in local storage
+                    localStorage.setItem('aurai_logged_in', 'true');
+                    showMainContent();
+                } else {
+                    // Show error message
+                    const errorMessage = document.getElementById('error-message');
+                    errorMessage.style.display = 'block';
+
+                    // Shake the inputs
+                    const inputs = document.querySelectorAll('.form-group input');
+                    inputs.forEach(input => {
+                        input.style.borderColor = 'var(--danger)';
+                        setTimeout(() => {
+                            input.style.borderColor = 'var(--border-color)';
+                        }, 1000);
+                    });
+                }
+            });
+
+            // Handle Enter key press in password field
+            document.getElementById('password').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    document.getElementById('login-btn').click();
+                }
+            });
+
+            // Function to show main content
+            function showMainContent() {
+                document.getElementById('login-container').style.display = 'none';
+                document.querySelector('.container').style.display = 'flex';
+
+                // Show welcome toast notification
+                if (typeof Toast !== 'undefined') {
+                    Toast.success('Welcome to AURAI CRM System');
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
